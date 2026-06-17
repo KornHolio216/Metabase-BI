@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: lab12-postgres
+    environment:
+      POSTGRES_USER: bi
+      POSTGRES_PASSWORD: bi
+      POSTGRES_DB: ntpd
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: lab12-metabase
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
